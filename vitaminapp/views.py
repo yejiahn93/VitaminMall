@@ -20,7 +20,7 @@ def index(request):
     }
     return render(request, 'home.html', context)
 
-def loggedin(request):
+def loggedin(request, id):
     product_list = Product.objects.all()
     paginator = Paginator(product_list, 1) 
     page_num = request.GET.get('page')
