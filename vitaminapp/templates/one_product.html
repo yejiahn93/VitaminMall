@@ -48,6 +48,14 @@
                 </a>
               </li>
               </li>
+              {% if thisuser.is_authenticated %}
+              <li class="nav-item">
+                <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+                  target="_blank">
+                  Logout
+                </a>
+              </li>
+              {%endif%}
               <li class="nav-item">
                 <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
                   target="_blank">
@@ -99,7 +107,7 @@
     
                 <p>{{ one_product.description }}</p>
     
-                  <a href=""class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                  <a action="/checkout" method="post"class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
                     <i class="fas fa-shopping-cart ml-1"></i>
                   </a>  
             </div>

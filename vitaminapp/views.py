@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import authenticate, login
 import bcrypt
 
 
@@ -20,7 +21,7 @@ def index(request):
     }
     return render(request, 'home.html', context)
 
-def loggedin(request, id):
+def loggedin(request):
     product_list = Product.objects.all()
     paginator = Paginator(product_list, 1) 
     page_num = request.GET.get('page')
@@ -29,6 +30,7 @@ def loggedin(request, id):
         'products': Product.objects.all(),
         'page': page,
         'count': paginator.count,
+        'this_user': User.objects.get(id=request.session['user_id']),
     }
     return render(request, 'loggedin.html', context)
 
@@ -80,6 +82,13 @@ def checkout (request):
 def one_product(request, id):
     context = {
         'one_product': Product.objects.get(id=id),
+        'thisuser': User.objects.get(id=request.session['user_id'])
     }
     return render(request, "one_product.html", context)
 
+def cart(request):
+    context = {
+        'products': Product.objects.all(),
+        'current_user': User.objects.get(id=request.session['user_id'])
+    }
+    return render(request, "checkout.html", context)

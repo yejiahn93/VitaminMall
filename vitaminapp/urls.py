@@ -11,6 +11,7 @@ urlpatterns = [
     path("main", views.loggedin),
     path('login_register', views.login_register),
     path('admin/', admin.site.urls),  
+    path('checkout', views.cart),
     path('register', views.register),
     path('login', views.login),
 ]
