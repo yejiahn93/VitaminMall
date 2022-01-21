@@ -47,6 +47,9 @@
 
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
+          <li>
+            <h5>hello {{this_user.first_name}} {{this_user.last_name}}</h5>
+          </li>
           <li class="nav-item">
             <a class="nav-link waves-effect">
               <span class="badge red z-depth-1 mr-1"> 1 </span>
@@ -58,7 +61,7 @@
           <li class="nav-item">
             <a href="/login_register" class="nav-link border border-light rounded waves-effect"
               target="_blank">
-              Login/Register
+              Logout
             </a>
           </li>
         </ul>
@@ -149,7 +152,7 @@
 
               <!--Card image-->
               <div class="view overlay">
-                <img width="100" height="300" src="{{product.product_pic}}" class="card-img-top" href="/{{oproduct.id}}">
+                <img width="100" height="300" src="{{product.product_pic}}" class="card-img-top" href="/{{product.id}}">
                 <a>
                   <div class="mask rgba-white-slight"></div>
                 </a>
@@ -164,7 +167,7 @@
                 </a>
                 <h5>
                   <strong>
-                    <a href="product/{{product.id}}" class="dark-grey-text">{{product.product_name}}
+                    <a href="/{{product.id}}" class="dark-grey-text">{{product.product_name}}
                       <span class="badge badge-pill danger-color">NEW</span>
                     </a>
                   </strong>

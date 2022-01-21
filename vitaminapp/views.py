@@ -20,6 +20,18 @@ def index(request):
     }
     return render(request, 'home.html', context)
 
+def loggedin(request):
+    product_list = Product.objects.all()
+    paginator = Paginator(product_list, 1) 
+    page_num = request.GET.get('page')
+    page = paginator.get_page(page_num)
+    context = {
+        'products': Product.objects.all(),
+        'page': page,
+        'count': paginator.count,
+    }
+    return render(request, 'loggedin.html', context)
+
 def products(request):
     context = {
         'products': Product.objects.all()
@@ -38,7 +50,7 @@ def register(request):
             return redirect('/login_register')
         else:
             password = request.POST['password']
-            pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+            pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
             user = User.objects.create(
                 first_name = request.POST['first_name'],
                 last_name = request.POST['last_name'],
@@ -47,8 +59,8 @@ def register(request):
             )
             request.session['user_id'] = user.id
             request.session['greeting'] = user.first_name
-            return redirect('/')
-    return redirect('/')
+            return redirect('/main')
+    return redirect('/login_register')
 
 def login(request):
     if request.method == "POST":
@@ -58,7 +70,7 @@ def login(request):
             if bcrypt.checkpw(request.POST['password'].encode(),user.password.encode()):
                 request.session['user_id'] = user.id
                 request.session['greeting'] = user.first_name
-                return redirect('/')
+                return redirect('/main')
         messages.error(request, "Email for password are not right")
     return redirect('/login_register')
 
