@@ -82,9 +82,15 @@ def checkout (request):
 def one_product(request, id):
     context = {
         'one_product': Product.objects.get(id=id),
-        'thisuser': User.objects.get(id=request.session['user_id'])
     }
     return render(request, "one_product.html", context)
+
+def loggedin_product(request, id):
+    context = {
+        'one_product': Product.objects.get(id=id),
+        'this_user': User.objects.get(id=request.session['user_id'])
+    }
+    return render(request, "loggedin_product.html", context)
 
 def cart(request):
     context = {
